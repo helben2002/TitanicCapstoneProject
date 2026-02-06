@@ -24,7 +24,7 @@ titanic-project/
 │   │   ├── asgi.py
 │   │   └── wsgi.py
 │   │
-│   └── prediction/
+│   └── predictor/
 │       ├── migrations/
 │       ├── models.py
 │       ├── views.py
@@ -32,7 +32,7 @@ titanic-project/
 │       ├── ml_service.py
 │       ├── urls.py
 │       └── templates/
-│           └── prediction/
+│           └── predictor/
 │               ├── home.html
 │               ├── form.html
 │               ├── result.html
