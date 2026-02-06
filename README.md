@@ -4,7 +4,7 @@ Project in ML in a course from Lexicon
 
 Project Structure
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 titanic-project/
