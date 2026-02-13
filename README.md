@@ -13,7 +13,9 @@ titanic-project/
 │   ├── models/
 │   │   └── titanic_model.pkl
 │   ├── notebooks/
-│   └── titanic_pipeline.py
+│   ├── titanic_features.py
+│   ├── titanic_pipeline.py
+│   └── titanic_train.py
 │
 ├── django_app/
 │   ├── manage.py
