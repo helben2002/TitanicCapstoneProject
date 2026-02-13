@@ -10,11 +10,10 @@ titanic-project/
 ├── ml/
 │   ├── data/
 │   │   └── raw/
+│   ├── models/
+│   │   └── titanic_model.pkl
 │   ├── notebooks/
-│   ├── features.py
-│   ├── pipeline.py
-│   ├── train.py
-│   └── model.pkl
+│   └── titanic_pipeline.py
 │
 ├── django_app/
 │   ├── manage.py
