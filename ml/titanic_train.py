@@ -9,7 +9,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from pathlib import Path
 
-from titanic_pipeline import prepare_training_data
+from ml.titanic_pipeline import prepare_training_data
 
 #--------------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent
@@ -54,8 +54,11 @@ def cross_validate(model, X, y):
 #--------------------------------------------------------------------------
 
 # Save model
-def save_model(model, path):
+def save_model(model, path=MODEL_PATH):
+    path.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, path)
+
+    print(f"Model saved to {path}")
 #--------------------------------------------------------------------------
 
 # Train pipeline
@@ -81,7 +84,7 @@ def train():
     cross_validate(model, X, y)
 
     #  Save model
-    save_model(model, MODEL_PATH)
+    save_model(model)
 #--------------------------------------------------------------------------
 
 if __name__ == "__main__":
