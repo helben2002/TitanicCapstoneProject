@@ -12,6 +12,7 @@ from pathlib import Path
 from ml.titanic_pipeline import prepare_training_data
 
 #--------------------------------------------------------------------------
+
 BASE_DIR = Path(__file__).resolve().parent
 DATA_PATH = BASE_DIR / "data/raw/train.csv"
 MODEL_PATH = BASE_DIR / "models/titanic_model.pkl"
