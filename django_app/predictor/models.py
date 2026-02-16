@@ -23,4 +23,4 @@ class Prediction(models.Model):
 
 
     def __str__(self):
-        return f"Prediction {self.prediction} @ {self.created_at:%Y-%m-%d %H:%M}"
+        return f"Prediction {self.predicted_survival} @ {self.created_at:%Y-%m-%d %H:%M}"
