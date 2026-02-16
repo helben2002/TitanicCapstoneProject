@@ -5,4 +5,5 @@ app_name = 'predictor'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('history/', views.history, name='history'),
 ]
