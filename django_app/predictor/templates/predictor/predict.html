@@ -1,0 +1,23 @@
+{% extends "predictor/base.html" %}
+
+{% block content %}
+<h1>Titanic Survival Prediction</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Predict</button>
+</form>
+
+% if result is not None %}
+    <h2>Prediction Result</h2>
+
+    {% if result == 1 %}
+        <p style="color:green;">Survived</p>
+    {% else %}
+        <p style="color:red;">Did Not Survive</p>
+    {% endif %}
+
+    <p>Estimated Survival Probability: {{ probability|floatformat:2 }}</p>
+{% endif %}
+
+{% endblock %}
