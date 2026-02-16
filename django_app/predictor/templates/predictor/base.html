@@ -12,8 +12,10 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="{% url 'predictor:home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Predict</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'predictor:predict_view' %}">Predict</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'predictor:history' %}">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'predictor:predict_view' %}">Predict</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">History</a></li>
                 </ul>
             </div>
         </div>
