@@ -35,7 +35,7 @@
                 <td>{{ prediction.name }}</td>
                 <td>{{ prediction.predicted_survival }}</td>
                 <td>{{ prediction.probability }}</td>
-                <td>{{ prediction.created_at }}</td>
+                <td>{{ prediction.created_at|date:"F j, Y, H:i" }}</td>
             </tr>
             {% empty %}
             <tr>
