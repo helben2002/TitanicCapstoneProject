@@ -2,11 +2,12 @@
 
 {% block content %}
 <h1>Titanic Survival Prediction</h1>
-<form method="post">
+<form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button>Predict</button>
+    <button type="submit">Predict</button>
 </form>
+
 
 {% if result is not None %}
     <h2>Prediction Result</h2>
