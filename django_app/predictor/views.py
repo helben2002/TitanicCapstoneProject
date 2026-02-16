@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from datetime import datetime
+from .ml_service import TitanicPredictionService
+
+service = TitanicPredictionService()
 
 from .forms import PassengerForm
 from ml.predict_service import predict_passenger
@@ -66,3 +69,5 @@ def predict_view(request):
         "result": result,
         "probability": probability
     })
+
+# TODO: run prediction service in predict view and save to db
