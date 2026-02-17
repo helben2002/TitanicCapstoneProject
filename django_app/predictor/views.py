@@ -3,6 +3,7 @@ from datetime import datetime
 
 from .forms import PassengerForm
 from ml.predict_service import predict_passenger
+from .models import Prediction
 
 
 def home(request):
@@ -10,39 +11,8 @@ def home(request):
 
 
 def history(request):
-    # TODO: fetch predictions from database later
 
-    # Dummy data for testing
-    predictions = [
-        {
-            'id': 1,
-            'passenger_class': 'First Class',
-            'sex': 'Female',
-            'age': 22,
-            'sibling_spouse_count': 1,
-            'parent_child_count': 0,
-            'fare': 7.25,
-            'embarked_port': 'S',
-            'name': 'Heijkenskjöld, Miss Sara',
-            'predicted_survival': True,
-            'probability': 0.85,
-            'created_at': datetime.now()
-        },
-        {
-            'id': 2,
-            'passenger_class': 'Second Class',
-            'sex': 'Male',
-            'age': 35,
-            'sibling_spouse_count': 0,
-            'parent_child_count': 1,
-            'fare': 7.25,
-            'embarked_port': 'S',
-            'name': 'Heijkenskjöld, Mr. John',
-            'predicted_survival': False,
-            'probability': 0.80,
-            'created_at': datetime.now()
-        }
-    ]
+    predictions = Prediction.objects.order_by("-created_at")
 
     return render(request, 'predictor/history.html', {
         'predictions': predictions
@@ -57,7 +27,30 @@ def predict_view(request):
         form = PassengerForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+
+            # ML prediction
             result, probability = predict_passenger(data)
+
+            # Map form → DB model fields
+            db_data = {
+                "name": data["Name"],
+                "passenger_class": data["Pclass"],
+                "sex": data["Sex"],
+                "age": data["Age"],
+                "sibling_spouse_count": data["SibSp"],
+                "parent_child_count": data["Parch"],
+                "fare": data["Fare"],
+                "embarked_port": data["Embarked"],
+            }
+
+            # SAVE TO DATABASE
+            Prediction.objects.create(
+                **db_data,
+                predicted_survival=(int(result) == 1),
+                probability=float(probability) if probability is not None else None,
+                input_data=data,
+            )
+
     else:
         form = PassengerForm()
 
