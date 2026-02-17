@@ -19,8 +19,8 @@ MODEL_PATH = BASE_DIR / "models/titanic_model.pkl"
 
 # ------------------------------------------------------------
 
-# Load model
-model = joblib.load(MODEL_PATH)
+# # Load model
+# model = joblib.load(MODEL_PATH)
 
 # ------------------------------------------------------------
 
@@ -48,7 +48,7 @@ def prepare_model_data(df):
 # ------------------------------------------------------------
 
 # Prediction pipeline
-def predict_passenger(data: dict):
+def predict_passenger(data: dict, model):
     
     # Load data
     df = pd.DataFrame([data])

@@ -2,10 +2,10 @@ import joblib
 import pandas as pd
 from pathlib import Path
 
-from ml.titanic_pipeline import prepare_training_data
+from ml.predict_service import predict_passenger
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-MODEL_PATH = BASE_DIR / "ml/titanic_model.pkl"
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+MODEL_PATH = BASE_DIR / "ml/models/titanic_model.pkl"
 
 class TitanicPredictionService:
     def __init__(self):
@@ -31,9 +31,6 @@ class TitanicPredictionService:
     def predict(self, form_data):
         model = self._load_model()
         raw = self._to_kaggle_schema(form_data)
-        df = pd.DataFrame([raw])
-        X, _ = prepare_training_data(df)
-        prediction = int(model.predict(X)[0])
-        probability = float(model.predict_proba(X)[0][1])
+        prediction, probability = predict_passenger(raw, model)
 
         return prediction, probability
