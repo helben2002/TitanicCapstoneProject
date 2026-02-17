@@ -29,6 +29,9 @@ def history(request):
 
     predictions = Prediction.objects.order_by('-created_at')[:20]
 
+    for p in predictions:
+        p.probability_percent = round(p.probability * 100, 2)
+
     return render(request, 'predictor/history.html', {
         'predictions': predictions
     })
