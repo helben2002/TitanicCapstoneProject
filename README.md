@@ -47,5 +47,49 @@ titanic-project/
 ├── README.md
 ├── requirements.txt
 └── .gitignore
+```
+
+## How to setup and run the Project locally
+
+### Prerequisites
+
+#### Make sure you have the following installed:
+
+- Git
+- Python 3.x
+- pip
+
+### 1. Clone the repository
+```git clone https://github.com/helben2002/TitanicCapstoneProject.git```
+```cd TitanicCapstoneProject```
+
+
+### 2. Create and activate virtual Environment
+Windows
+```python -m venv .venv```
+```source .venv/bin/activate```
+
+
+### 3. Install dependencies
+```pip install -r requirements.txt```
+
+
+### 4. Run database migrations
+```python manage.py migrate```
+
+
+### Optional: Seed prediction data
+#### If you want example prediction data for testing or demo purposes, run:
+```python manage.py seed_predictions```
+
+
+### 5. Run the development server
+```python manage.py runserver```
+
+
+### 6. Open the application
+Go to:
+```http://127.0.0.1:8000/```
+
 
 
