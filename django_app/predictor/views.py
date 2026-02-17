@@ -1,10 +1,13 @@
 from django.shortcuts import render
+from django.utils import timezone
 from datetime import datetime
-from .ml_service import TitanicPredictionService
-
-service = TitanicPredictionService()
 
 from .forms import PassengerForm
+from .models import Prediction
+from .ml_service import TitanicPredictionService
+
+prediction_service = TitanicPredictionService()
+
 from ml.predict_service import predict_passenger
 
 
@@ -15,37 +18,7 @@ def home(request):
 def history(request):
     # TODO: fetch predictions from database later
 
-    # Dummy data for testing
-    predictions = [
-        {
-            'id': 1,
-            'passenger_class': 'First Class',
-            'sex': 'Female',
-            'age': 22,
-            'sibling_spouse_count': 1,
-            'parent_child_count': 0,
-            'fare': 7.25,
-            'embarked_port': 'S',
-            'name': 'Heijkenskjöld, Miss Sara',
-            'predicted_survival': True,
-            'probability': 0.85,
-            'created_at': datetime.now()
-        },
-        {
-            'id': 2,
-            'passenger_class': 'Second Class',
-            'sex': 'Male',
-            'age': 35,
-            'sibling_spouse_count': 0,
-            'parent_child_count': 1,
-            'fare': 7.25,
-            'embarked_port': 'S',
-            'name': 'Heijkenskjöld, Mr. John',
-            'predicted_survival': False,
-            'probability': 0.80,
-            'created_at': datetime.now()
-        }
-    ]
+    predictions = Prediction.objects.order_by('-created_at')[:20]
 
     return render(request, 'predictor/history.html', {
         'predictions': predictions
@@ -53,21 +26,36 @@ def history(request):
 
 
 def predict_view(request):
-    result = None
+    prediction = None
     probability = None
 
     if request.method == "POST":
         form = PassengerForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            result, probability = predict_passenger(data)
+
+            #  get prediction from service
+            prediction, probability = prediction_service.predict(data)
+
+            # save to database
+            Prediction.objects.create(
+                name=data['name'],
+                passenger_class=data['passenger_class'],
+                sex=data['sex'],
+                age=data['age'],
+                sibling_spouse_count=data['sibling_spouse_count'],
+                parent_child_count=data['parent_child_count'],
+                fare=data['fare'],
+                embarked_port=data['embarked_port'],
+                predicted_survival=prediction,
+                probability=probability,
+                created_at=timezone.now()
+            )
     else:
         form = PassengerForm()
 
     return render(request, "predictor/predict.html", {
         "form": form,
-        "result": result,
+        "result": prediction,
         "probability": probability
     })
-
-# TODO: run prediction service in predict view and save to db
