@@ -1,15 +1,98 @@
 {% extends "predictor/base.html" %}
 
 {% block content %}
-<h1>Welcome to the Titanic Predictor</h1>
 
-<h2>About The Titanic Predictor</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-  qui officia deserunt mollit anim id est laborum.
-</p>
+<div class="container mt-4">
+
+    <!-- Hero section -->
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+        <div class="container-fluid py-4">
+            <h1 class="display-5 fw-bold">Titanic++ Survival Predictor</h1>
+            <p class="col-md-8 fs-5">
+                This project combines machine learning with a Django web application
+                to predict the probability of survival for Titanic passengers based on
+                historical data and engineered features.
+            </p>
+        </div>
+    </div>
+
+    <!-- Project description -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">Project Purpose</h2>
+            <p>
+                The goal of the Titanic++ project is to demonstrate how a machine learning
+                pipeline can be integrated into a production-style web system.
+                The project includes:
+            </p>
+
+            <ul>
+                <li>Data preprocessing and feature engineering</li>
+                <li>Model training and evaluation</li>
+                <li>A predictionه Django web interface for predictions</li>
+                <li>A database storing historical predictions</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- System architecture -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">System Design</h2>
+
+            <p>The application consists of three main components:</p>
+
+            <div class="row text-center mt-4">
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 h-100">
+                        <h5>Machine Learning Pipeline</h5>
+                        <p class="small">
+                            Handles preprocessing, feature engineering,
+                            model training, and saving the final model artifact.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 h-100">
+                        <h5>Django Backend</h5>
+                        <p class="small">
+                            Accepts user input, maps it to the model schema,
+                            runs predictions, and stores results in the database.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 h-100">
+                        <h5>User Interface</h5>
+                        <p class="small">
+                            Provides pages for predictions, results,
+                            and viewing historical prediction data.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- README section -->
+    <div class="card mb-5 shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">Project Documentation</h2>
+
+            <p class="text-muted">
+                Below is the live project README, automatically loaded from the repository.
+            </p>
+
+            <div class="bg-light p-3 rounded" style="max-height:500px; overflow:auto;">
+                {{ readme|safe }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

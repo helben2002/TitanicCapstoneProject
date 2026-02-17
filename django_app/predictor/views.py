@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from pathlib import Path
 from django.utils import timezone
-from datetime import datetime
+import markdown
 
 from .forms import PassengerForm
 from .models import Prediction
@@ -8,11 +9,19 @@ from .ml_service import TitanicPredictionService
 
 prediction_service = TitanicPredictionService()
 
-from ml.predict_service import predict_passenger
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 def home(request):
-    return render(request, 'predictor/home.html')
+    readme_path = BASE_DIR / "README.md"
+
+    readme_html = ""
+    if readme_path.exists():
+        text = readme_path.read_text(encoding="utf-8")
+        readme_html = markdown.markdown(text)
+
+    return render(request, "predictor/home.html", {
+        "readme": readme_html
+    })
 
 
 def history(request):
