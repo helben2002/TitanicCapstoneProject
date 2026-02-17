@@ -28,6 +28,7 @@ def history(request):
 def predict_view(request):
     prediction = None
     probability = None
+    probability_percent = None
 
     if request.method == "POST":
         form = PassengerForm(request.POST)
