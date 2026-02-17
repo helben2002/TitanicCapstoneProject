@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from datetime import datetime
 
+from .forms import PassengerForm
+from ml.predict_service import predict_passenger
+
+
 def home(request):
     return render(request, 'predictor/home.html')
 
 
 def history(request):
-    # TODO: fetch predictions
-    # predictions = Prediction.objects.all().order_by("-created_at")
+    # TODO: fetch predictions from database later
 
-    # Dummy data to test the table
+    # Dummy data for testing
     predictions = [
         {
             'id': 1,
@@ -25,7 +28,7 @@ def history(request):
             'probability': 0.85,
             'created_at': datetime.now()
         },
-          {
+        {
             'id': 2,
             'passenger_class': 'Second Class',
             'sex': 'Male',
@@ -43,4 +46,23 @@ def history(request):
 
     return render(request, 'predictor/history.html', {
         'predictions': predictions
+    })
+
+
+def predict_view(request):
+    result = None
+    probability = None
+
+    if request.method == "POST":
+        form = PassengerForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            result, probability = predict_passenger(data)
+    else:
+        form = PassengerForm()
+
+    return render(request, "predictor/predict.html", {
+        "form": form,
+        "result": result,
+        "probability": probability
     })
