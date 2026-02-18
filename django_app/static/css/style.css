@@ -87,10 +87,15 @@ html, body {
     border-radius: 10px;
 }
 
+.progress-bar-survived {
+        background: linear-gradient(90deg, #2ECC71, #1B8A4B);
+    font-size: 16px;
+}
+
 .predict-btn{
-    background: linear-gradient(90deg, #1ABC9C, #16A085);
-    box-shadow: 0 6px 18px rgba(26,188,156,0.35);
-    color: white;
+    background: linear-gradient(90deg, #2ECC71, #1B8A4B);
+    box-shadow: 0 6px 18px rgba(233, 237, 167, 0.35);
+    color: white !important;
     border: none;
     padding: 12px 20px;
     border-radius: 8px;

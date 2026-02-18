@@ -47,13 +47,12 @@
                 </div>
 
                 <!-- PROGRESS BAR -->
-                <div class="progress" style="height: 28px;">
-                    <div class="progress-bar bg-success"
-                        style="width: {{ probability|floatformat:2 }};">
-                        {{ probability|floatformat:2 }}%
+                <div class="progress" style="height: 50px;">
+                    <div class="progress-bar progress-bar-survived"
+                    style="width: {{ probability|floatformat:2 }}%;">
+                    {{ probability|floatformat:2 }}%
                     </div>
                 </div>
-
             </div>
             {% endif %}
 
