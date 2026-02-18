@@ -1,15 +1,126 @@
-{% extends "predictor/base.html" %} {% block content %} 
-<h1>Titanic Survival Prediction</h1> 
-<form method="POST"> 
-    {% csrf_token %} 
-    {{ form.as_p }} 
-    <button type="submit">Predict</button> 
-</form> 
-{% if result is not None %} 
-<h2>Prediction Result</h2> {% if result == 1 %} 
-<p style="color:green;">Survived</p> 
-{% else %} 
-<p style="color:red;">Did Not Survive</p> 
-{% endif %} 
-<p>Estimated Survival Probability: {{ probability|floatformat:2 }}</p> 
-{% endif %} {% endblock %}
+{% extends "predictor/base.html" %}
+{% load static %}
+{% load l10n %}
+{% block content %}
+
+<div class="predict-page container py-4">
+
+    <!-- TITLE -->
+    <div class="text-center mb-4">
+        <h1 class="page-title">
+            <img src="{% static 'images/ship-icon.png' %}" class="title-icon">
+             Titanic Survival Predictions
+        </h1>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- LEFT SIDE -->
+        <div class="col-lg-6">
+
+            <!-- TITANIC IMAGE -->
+            <img src="{% static 'images/titanic.png' %}"
+                 class="img-fluid ship-image mb-4">
+
+            <!-- RESULT CARD BELOW IMAGE -->
+            {% if result is not None %}
+            <div class="card result-card p-4 shadow-sm">
+
+                <h4 class="mb-3">Prediction Result</h4>
+
+                {% if result == 1 %}
+                    <div class="alert alert-success fw-bold">
+                        ✔ Survived 🎉
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger fw-bold">
+                        ✘ Did not survive
+                    </div>
+                {% endif %}
+
+                <!-- SHOW PERCENT CLEARLY -->
+                <div class="text-center mb-2">
+                    <h5 class="mb-1">Estimated Survival Probability</h5>
+                    <div class="probability-text">
+                        {{ probability|floatformat:2 }}%
+                    </div>
+                </div>
+
+                <!-- PROGRESS BAR -->
+                <div class="progress" style="height: 50px;">
+                    <div class="progress-bar progress-bar-survived"
+                    style="width: {{ probability|floatformat:2 }}%;">
+                    {{ probability|floatformat:2 }}%
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+
+
+        <!-- RIGHT SIDE FORM -->
+        <div class="col-lg-6">
+            <div class="card prediction-card p-4 shadow-sm">
+
+                <h4 class="mb-3">Passenger Details</h4>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Passenger Name</label>
+                        {{ form.name }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Passenger Class</label>
+                            {{ form.passenger_class }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Sex</label>
+                            {{ form.sex }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Age</label>
+                        {{ form.age }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Siblings / Spouses</label>
+                            {{ form.sibling_spouse_count }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Parents / Children</label>
+                            {{ form.parent_child_count }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Fare</label>
+                        {{ form.fare }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Embarked Port</label>
+                        {{ form.embarked_port }}
+                    </div>
+
+                    <button type="submit" class="btn predict-btn w-100 btn-lg mt-2">
+                        Predict Survival
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

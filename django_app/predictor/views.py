@@ -40,14 +40,17 @@ def history(request):
 def predict_view(request):
     prediction = None
     probability = None
+    probability_percent = None
 
     if request.method == "POST":
         form = PassengerForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
 
+
             #  get prediction from service
             prediction, probability = prediction_service.predict(data)
+            probability_percent = probability * 100
 
             # save to database
             Prediction.objects.create(
@@ -63,11 +66,15 @@ def predict_view(request):
                 probability=probability,
                 created_at=timezone.now()
             )
+
+            
+
     else:
         form = PassengerForm()
 
     return render(request, "predictor/predict.html", {
         "form": form,
         "result": prediction,
-        "probability": probability
-    })
+        "probability":  probability_percent 
+        }
+    )
