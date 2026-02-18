@@ -32,11 +32,11 @@ titanic-project/
 │   │   │   
 │   │   ├── processed/  
 │   │   │   ├── test_cleaned.csv   
-│   │   │   ├── train_cleaned.csv
-│   │          
+│   │   │   ├── train_cleaned.csv       
 │   ├── models/  
 │   │   └── titanic_model.pkl  
 │   ├── notebooks/  
+│   ├── submissions/       
 │   ├── predict_service.py  
 │   ├── predict.py  
 │   ├── titanic_features.py  
@@ -58,12 +58,15 @@ titanic-project/
 │       ├── forms.py
 │       ├── ml_service.py
 │       ├── urls.py
-│       └── templates/
-│           └── predictor/
-│               ├── base.html
-│               ├── history.html
-│               ├── home.html
-│               ├── predict.html
+├── templates/
+│   └── predictor/
+│       ├── base.html
+│       ├── history.html
+│       ├── home.html
+│       └── predict.html
+├── static/
+│   ├── images/ 
+│   ├── css/    
 │
 ├── README.md
 ├── requirements.txt
