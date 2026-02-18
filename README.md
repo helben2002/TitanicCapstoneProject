@@ -73,6 +73,79 @@ titanic-project/
 └── .gitignore
 </pre>
 
+## Machine Learning Model Description
+
+The prediction model is trained using the Titanic dataset to estimate whether a passenger survived.
+
+### Model Type
+
+Logistic Regression classifier.
+
+### Why Logistic Regression?
+
+- Suitable for binary classification (survived / not survived)
+
+- Interpretable and efficient
+
+- Works well on structured tabular data
+
+###  Feature Engineering
+
+The raw dataset is transformed before training:
+
+- Extract title from passenger name
+
+- Age grouping
+
+- Fare grouping
+
+- Family size grouping
+
+- Gender encoding
+
+- Embarkation port encoding
+
+Missing values are handled using imputation.
+
+### Model Output
+
+The model returns:
+
+- Class prediction (0 or 1)
+
+- Probability of survival
+
+The trained model is saved using joblib and loaded during prediction.
+
+## System Architecture Overview
+
+The system processes predictions through the following steps:
+
+1. **User Input (Browser)**  
+   The user enters passenger information through the web interface.
+
+2. **Django Web Application (Views + Forms)**  
+   Django validates the input and prepares it for prediction.
+
+3. **Prediction Service (ML Pipeline)**  
+   The input data is preprocessed using the same transformations used during model training.
+
+4. **Trained Machine Learning Model**  
+   The Logistic Regression model generates the survival prediction and probability.
+
+5. **Prediction Result Generation**  
+   The predicted class and probability are returned.
+
+6. **Database Storage**  
+   Input data, prediction result, probability, and timestamp are saved.
+
+7. **Result Display**  
+   The prediction outcome is shown to the user and stored in history.
+
+
+
+The system follows a standard machine learning web deployment architecture.
+
 ## How to setup and run the Project locally
 
 ### Prerequisites
